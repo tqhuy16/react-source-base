@@ -76,13 +76,15 @@ module.exports = (env) => {
         },
         // {
         //   test: /\.html$/,
-        //   use: [{
-        //     loader: 'html-loader',
-        //     options: {
-        //       minimize: !IS_DEV,
-        //       root: path.resolve(__dirname, 'src')
+        //   use: [
+        //     {
+        //       loader: 'html-loader',
+        //       options: {
+        //         minimize: !IS_DEV,
+        //         root: path.resolve(__dirname, 'src')
+        //       }
         //     }
-        //   }]
+        //   ]
         // },
         {
           test: /\.(jpg|jpeg|png|svg|woff|eot|ttf|otf|pdf|gif)$/,
@@ -95,11 +97,11 @@ module.exports = (env) => {
     plugins: [
       new HtmlWebpackPlugin({
         title: appConfigs.TITLE,
-        template: path.resolve(__dirname, 'public/index.html'),
-        favicon: path.resolve(__dirname, 'public/images/favicon.ico')
-        // templateParameters: {
-        //   language: appConfigs.PAGE_LANGUAGE
-        // }
+        template: path.resolve(__dirname, 'src/index.ejs'),
+        favicon: path.resolve(__dirname, 'public/images/favicon.ico'),
+        templateParameters: {
+          language: appConfigs.PAGE_LANGUAGE
+        }
       }),
       new webpack.IgnorePlugin({
         resourceRegExp: /^\.\/locale$/,
@@ -124,7 +126,6 @@ module.exports = (env) => {
       historyApiFallback: true
     },
     stats: 'minimal',
-    //tắt gợi ý performance, cần nghiên cứu thêm cái qq này
     performance: {
       hints: false
     }
