@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { IncrementByAmount } from '@/types/reduxPayload/increnebt-by-amount'
+import { IncrementByAmount } from '@/types/reduxPayload/increment-by-amount'
 
 interface CounterState {
   value: number

@@ -15,7 +15,7 @@
 
   // TABLET M
   @if $breakpoint == md {
-    @media only screen and (max-width: 767) {
+    @media only screen and (max-width: 767px) {
       @content;
     }
   }
@@ -29,7 +29,7 @@
 
   // DESKTOP M
   @if $breakpoint == xl {
-    @media only screen and (max-width: 1199) {
+    @media only screen and (max-width: 1199px) {
       @content;
     }
   }

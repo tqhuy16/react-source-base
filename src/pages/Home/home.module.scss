@@ -1,3 +1,5 @@
+@import '@/assets/styles/bases/breakpoint.scss';
+
 .background {
   width: 30px;
   height: 30px;
@@ -7,4 +9,40 @@
 }
 .text {
   color: red;
+}
+
+@include media-query(xxl) {
+  .text {
+    color: lightblue;
+  }
+}
+
+@include media-query(xl) {
+  .text {
+    color: yellow;
+  }
+}
+
+@include media-query(lg) {
+  .text {
+    color: orange;
+  }
+}
+
+@include media-query(md) {
+  .text {
+    color: pink;
+  }
+}
+
+@include media-query(sm) {
+  .text {
+    color: silver;
+  }
+}
+
+@include media-query(xs) {
+  .text {
+    color: purple;
+  }
 }
