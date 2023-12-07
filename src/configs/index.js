@@ -1,3 +1,2 @@
-const Configs = { ...window._CONFIG }
-
-export default Configs
+const globalVariable = { ...window._GLOBAL }
+export default globalVariable

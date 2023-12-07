@@ -1,7 +1,5 @@
 const path = require('path')
-const lodash = require('lodash')
 const webpack = require('webpack')
-/* thêm html-webpack-plugin vào file cấu hình */
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
@@ -10,7 +8,7 @@ function getAppConfig(env) {
   let data = require(`./src/configs/${env}`)
   const defaultData = require('./src/configs/default')
 
-  data = lodash.assign(defaultData, data)
+  data = Object.assign(defaultData, data)
 
   return {
     ...data,
@@ -53,7 +51,6 @@ module.exports = (env) => {
         '@': path.resolve(__dirname, 'src')
       }
     },
-    /* đoạn code sau sẽ load các gói babel vào webpack */
     module: {
       rules: [
         {
@@ -93,7 +90,6 @@ module.exports = (env) => {
         }
       ]
     },
-    /* cấu hình file index.html từ folder public */
     plugins: [
       new HtmlWebpackPlugin({
         title: appConfigs.TITLE,
@@ -112,7 +108,7 @@ module.exports = (env) => {
         chunkFilename: '[name].css'
       }),
       new webpack.DefinePlugin({
-        'window._CONFIG': JSON.stringify(appConfigs)
+        'window._GLOBAL': JSON.stringify(appConfigs)
       }),
       new ForkTsCheckerWebpackPlugin({
         async: false

@@ -2,7 +2,7 @@ import { Table as AntdTable } from 'antd'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 
 import { ITableDataType, TablePaginationPositionTop, TablePaginationPositionBottom } from '@/types/global'
-import Configs from '@/configs'
+import globalVariable from '@/configs'
 
 interface ITableProps {
   columns: ColumnsType<ITableDataType>
@@ -25,7 +25,7 @@ const Table = ({
   paginationPositionBottom = 'none',
   loading,
   bordered,
-  defaultPageSize = Configs.PAGINATION_PAGE_SIZE,
+  defaultPageSize = globalVariable.PAGINATION_PAGE_SIZE,
   showSizeChanger = false,
   hideOnSinglePage = false,
   showQuickJumper = false,

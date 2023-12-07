@@ -17,33 +17,6 @@ const TableSection = () => {
     {
       title: 'Name',
       dataIndex: 'name',
-      // filters: [
-      //   {
-      //     text: 'Joe',
-      //     value: 'Joe'
-      //   },
-      //   {
-      //     text: 'Jim',
-      //     value: 'Jim'
-      //   },
-      //   {
-      //     text: 'Submenu',
-      //     value: 'Submenu',
-      //     children: [
-      //       {
-      //         text: 'Green',
-      //         value: 'Green'
-      //       },
-      //       {
-      //         text: 'Black',
-      //         value: 'Black'
-      //       }
-      //     ]
-      //   }
-      // ],
-      // // specify the condition of filtering result
-      // // here is that finding the name started with `value`
-      // onFilter: (value: string, record) => record.name.indexOf(value) === 0,
       sorter: (a, b) => a.name.length - b.name.length,
       sortDirections: ['ascend', 'descend']
     },
