@@ -112,8 +112,7 @@ module.exports = (env) => {
       }),
       new ForkTsCheckerWebpackPlugin({
         async: false
-      }),
-      new webpack.HotModuleReplacementPlugin()
+      })
     ],
     /* tự mở tab trình duyệt mới */
     devServer: {
