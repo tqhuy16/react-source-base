@@ -14,7 +14,7 @@ const Home = () => {
         <Typography size='big'>SVG Icon</Typography>
         <AppleIcon />
         <Typography size='big' className={styles.text}>
-          CSS Module BackgroundImage - Responsive to see change color
+          CSS Module BackgroundImage-Responsive to see change color
         </Typography>
         <div className={styles.background}></div>
         <Loading />
