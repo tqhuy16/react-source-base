@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { loginStorage } from '@/utils/authenticated-storage'
 import { login } from '@/api/auth'
 import { LOGIN_ACCESS_TOKEN } from '@/constants/key-storage'
-import { Button, Container, PageContent, InputField, Toast } from '@/component'
+import { Button, PageContent, InputField, Toast } from '@/component'
 import { validationLogin } from '@/shared/validation/login-validation'
 
 import styles from './login.module.scss'
@@ -50,22 +50,20 @@ const Login = (): JSX.Element => {
 
   return (
     <PageContent>
-      <Container>
-        <div className={styles.loginForm}>
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <p className={styles.title}>LOGIN</p>
-            <div className={styles.fieldGroup}>
-              <InputField label='Username (admin)' name='userName' control={control} />
-              <InputField label='Password (123456)' name='password' control={control} isPassWord />
-            </div>
-            <div className={styles.actionBox}>
-              <Button size='large' type='submit' loading={loading}>
-                Login
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Container>
+      <div className={styles.loginForm}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <p className={styles.title}>LOGIN</p>
+          <div className={styles.fieldGroup}>
+            <InputField label='Username (admin)' name='userName' control={control} />
+            <InputField label='Password (123456)' name='password' control={control} isPassWord />
+          </div>
+          <div className={styles.actionBox}>
+            <Button size='large' type='submit' loading={loading}>
+              Login
+            </Button>
+          </div>
+        </form>
+      </div>
     </PageContent>
   )
 }

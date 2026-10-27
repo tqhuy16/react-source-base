@@ -1,4 +1,4 @@
-@import '@/assets/styles/bases/breakpoint';
+@use '@/assets/styles/bases/breakpoint' as *;
 
 .container {
   max-width: 1140px;

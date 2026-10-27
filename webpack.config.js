@@ -65,7 +65,12 @@ module.exports = (env) => {
         },
         {
           test: /\.s[ac]ss$/i,
-          use: [IS_DEV ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+          use: [
+            IS_DEV ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader',
+            // dùng Sass modern API, tránh cảnh báo legacy JS API
+            { loader: 'sass-loader', options: { api: 'modern-compiler' } }
+          ]
         },
         {
           test: /\.css$/,

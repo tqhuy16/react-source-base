@@ -1,4 +1,4 @@
-@import '@/assets/styles/bases/breakpoint.scss';
+@use '@/assets/styles/bases/breakpoint.scss' as *;
 
 .background {
   width: 30px;

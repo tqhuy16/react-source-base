@@ -2,12 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  // vừa khít PageContent (đã chiếm phần còn lại của 100vh) nên không phát sinh scroll
+  min-height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
 
   .form {
     padding: 40px;
     box-shadow: 0 12px 201px 0 rgba(0, 0, 0, 0.06);
-    width: 440px;
+    width: 100%;
+    max-width: 440px;
+    box-sizing: border-box;
     border-radius: 4px;
     background-color: white;
 

@@ -1,4 +1,4 @@
-@import '@/assets/styles/bases/variables';
+@use '@/assets/styles/bases/variables' as *;
 
 .headerContainer {
   height: 60px;
@@ -85,7 +85,9 @@
           align-items: center;
           border-radius: 4px;
           padding-top: 2px;
-          transition: color 0.2s, background-color 0.2s;
+          transition:
+            color 0.2s,
+            background-color 0.2s;
 
           &.active {
             background-color: $white;

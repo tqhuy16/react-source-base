@@ -1,4 +1,5 @@
-@import '@/assets/styles/bases/effect';
+@use '@/assets/styles/bases/variables' as *;
+@use '@/assets/styles/bases/effect' as *;
 
 body {
   margin: 0;

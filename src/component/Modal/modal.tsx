@@ -14,15 +14,11 @@ const Modal = forwardRef(
     const [open, setOpen] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
 
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          showModal: () => setOpen(true)
-        }
-      },
-      []
-    )
+    useImperativeHandle(ref, () => {
+      return {
+        showModal: () => setOpen(true)
+      }
+    }, [])
 
     const handleOk = () => {
       setConfirmLoading(true)

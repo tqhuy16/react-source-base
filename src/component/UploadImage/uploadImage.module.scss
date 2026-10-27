@@ -1,4 +1,4 @@
-@import '@/assets/styles/bases/variables';
+@use '@/assets/styles/bases/variables' as *;
 
 @mixin image-size {
   min-width: 150px;

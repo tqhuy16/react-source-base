@@ -1,5 +1,5 @@
-@import '@/assets/styles/bases/variables';
-@import '@/assets/styles/bases/effect';
+@use '@/assets/styles/bases/variables' as *;
+@use '@/assets/styles/bases/effect' as *;
 
 .button {
   overflow: hidden;

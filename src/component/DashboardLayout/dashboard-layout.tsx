@@ -1,7 +1,7 @@
 import { Suspense, createContext, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { PageContent, Loading, Header, SideBar } from '@/component'
+import { PageContent, Loading, Header, SideBar, Footer } from '@/component'
 import styles from './dashBoardLayout.module.scss'
 
 interface MenuContextType {
@@ -28,6 +28,7 @@ const DashboardLayout = () => {
           <Outlet />
         </Suspense>
       </div>
+      <Footer />
     </ToggleMenu.Provider>
   )
 }

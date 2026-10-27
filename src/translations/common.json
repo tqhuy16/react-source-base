@@ -10,6 +10,11 @@
         "home": "Home",
         "examples": "Examples",
         "redux": "Redux"
+      },
+      "footer": {
+        "rights": "All rights reserved.",
+        "made_with": "Made with",
+        "by": "by {{author}}"
       }
     }
   },
@@ -25,6 +30,11 @@
         "home": "Trang chủ",
         "examples": "Các ví dụ",
         "redux": "Quản lí state"
+      },
+      "footer": {
+        "rights": "Bảo lưu mọi quyền.",
+        "made_with": "Được làm với",
+        "by": "bởi {{author}}"
       }
     }
   }

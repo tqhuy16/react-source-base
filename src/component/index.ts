@@ -7,6 +7,7 @@ import PageContent from './PageContent/page-content'
 import InputField from './InputField/input-field'
 import Loading from './Loading/loading'
 import Header from './Header/header'
+import Footer from './Footer/footer'
 import Clickable from './Clickable/clickable'
 import SideBar from './SideBar/side-bar'
 import Toast from './Toast/toast'
@@ -29,6 +30,7 @@ export {
   InputField,
   Loading,
   Header,
+  Footer,
   Clickable,
   SideBar,
   Toast,

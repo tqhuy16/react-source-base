@@ -1,12 +1,12 @@
 // Sass variables
-@import './bases/variables.scss';
+@use './bases/variables.scss' as *;
 
 // Base styles
-@import './bases/fonts.scss';
-@import './bases/breakpoint.scss';
+@use './bases/fonts.scss' as *;
+@use './bases/breakpoint.scss' as *;
 
 // Custom Antd
-@import './bases/customAntd.scss';
+@use './bases/customAntd.scss' as *;
 
 // Global styles
-@import './bases/global.scss';
+@use './bases/global.scss' as *;
