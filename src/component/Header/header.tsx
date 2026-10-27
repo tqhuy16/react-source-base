@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { logoutStorage } from '@/utils/authenticated-storage'
-import { LOGIN_ACCESS_TOKEN } from '@/constants/key-storage'
+import { LOGIN_ACCESS_TOKEN, LOGIN_USER_NAME } from '@/constants/key-storage'
 import { Clickable } from '@/component'
 import { ROUTER_PATH } from '@/constants/common'
 import { MenuContextType, ToggleMenu } from '@/component/DashboardLayout/dashboard-layout'
@@ -21,6 +21,7 @@ const Header = () => {
   const onLogout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     logoutStorage(LOGIN_ACCESS_TOKEN)
+    logoutStorage(LOGIN_USER_NAME)
     navigate(ROUTER_PATH.LOGIN)
   }
 
@@ -49,7 +50,7 @@ const Header = () => {
           >
             <div className={styles.userBox}>
               <img className={styles.avatar} src='https://picsum.photos/300' alt='avatar' />
-              <p className='name'>{t('header.hello', { userName: 'tqhuy' })}</p>
+              <p className='name'>{t('header.hello', { userName: localStorage.getItem(LOGIN_USER_NAME) || '' })}</p>
             </div>
           </Popover>
           <div className={styles.languageBox}>

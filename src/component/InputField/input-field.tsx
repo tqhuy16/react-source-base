@@ -2,6 +2,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import { Input as AntInput } from 'antd'
 import classNames from 'classnames'
 
+import { ErrorMessage } from '@/component'
 import styles from './inputField.module.scss'
 
 interface IInputFieldProps<T extends FieldValues> {
@@ -21,8 +22,7 @@ const InputField = <T extends FieldValues>({
   className,
   label,
   placeholder,
-  isRequired = false,
-  ...rest
+  isRequired = false
 }: IInputFieldProps<T>) => {
   return (
     <>
@@ -44,7 +44,7 @@ const InputField = <T extends FieldValues>({
               placeholder={placeholder}
               className={classNames(styles.customInput, className)}
             />
-            {error?.message && <p className='text-error'>{error?.message}</p>}
+            <ErrorMessage message={error?.message} />
           </>
         )}
       />

@@ -3,10 +3,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { exampleFormValidation } from '@/shared/validation/example-form-validation'
-import { Button, Checkbox, DatePicker, InputField, Radio, Select, TextArea, UploadImage } from '@/component'
+import { Button, Checkbox, DatePicker, InputField, Radio, Select, TextArea, Toast, UploadImage } from '@/component'
 import { OPTIONS_GENDER, SELECT_POSITIONS, CHECKBOX_OPTIONS } from '@/shared/fake/data-global'
 import { DATE_FORMAT_LIST } from '@/constants/common'
 import { FileUploadType } from '@/types/global'
+import mockData from '@/utils/mock-api'
 import styles from './formSection.module.scss'
 
 interface IFormInput {
@@ -52,8 +53,8 @@ const FormSection = () => {
     e?.preventDefault()
     try {
       setIsLoading(true)
-      console.log('data', data)
-    } catch (error) {
+      await mockData({ data, duration: 1000 })
+      Toast('show', `Submitted: ${data.firstName} ${data.lastName}`)
     } finally {
       setIsLoading(false)
     }
@@ -78,7 +79,7 @@ const FormSection = () => {
                   control={control}
                   placeholder='Address 1'
                 />
-                <InputField label='Address 2' name='secondAddress' control={control} placeholder='Address 1' />
+                <InputField label='Address 2' name='secondAddress' control={control} placeholder='Address 2' />
               </div>
             </div>
 
@@ -131,7 +132,7 @@ const FormSection = () => {
             </div>
 
             <Button size='large' type='submit' loading={isLoading}>
-              Login
+              Submit
             </Button>
           </form>
         </div>

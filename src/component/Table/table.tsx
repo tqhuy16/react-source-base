@@ -1,11 +1,11 @@
 import { Table as AntdTable } from 'antd'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 
-import { ITableDataType, TablePaginationPositionTop, TablePaginationPositionBottom } from '@/types/global'
+import { TablePaginationPositionTop, TablePaginationPositionBottom } from '@/types/global'
 import globalVariable from '@/configs'
 
-interface ITableProps {
-  columns: ColumnsType<ITableDataType>
+interface ITableProps<T> {
+  columns: ColumnsType<T>
   paginationPositionTop?: TablePaginationPositionTop | 'none'
   paginationPositionBottom?: TablePaginationPositionBottom | 'none'
   loading?: boolean
@@ -16,10 +16,12 @@ interface ITableProps {
   hideOnSinglePage?: boolean
   showQuickJumper?: boolean
   title?: string
-  data?: ITableDataType[]
+  data?: T[]
+  rowKey?: TableProps<T>['rowKey']
+  onChange?: TableProps<T>['onChange']
 }
 
-const Table = ({
+const Table = <T extends object>({
   columns,
   paginationPositionTop = 'none',
   paginationPositionBottom = 'none',
@@ -30,20 +32,18 @@ const Table = ({
   hideOnSinglePage = false,
   showQuickJumper = false,
   title = '',
-  data
-}: ITableProps) => {
-  const onChange: TableProps<ITableDataType>['onChange'] = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra)
-  }
-
+  data,
+  rowKey = 'id',
+  onChange
+}: ITableProps<T>) => {
   return (
-    <AntdTable
-      rowKey={(data) => data.id}
+    <AntdTable<T>
+      rowKey={rowKey}
       columns={columns}
       loading={loading}
       bordered={bordered}
       dataSource={data}
-      title={() => title && title}
+      title={title ? () => title : undefined}
       onChange={onChange}
       pagination={{
         position: [

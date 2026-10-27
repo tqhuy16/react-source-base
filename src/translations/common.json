@@ -15,6 +15,11 @@
         "rights": "All rights reserved.",
         "made_with": "Made with",
         "by": "by {{author}}"
+      },
+      "not_found": {
+        "title": "Page not found",
+        "description": "The page you are looking for does not exist or has been moved.",
+        "back_home": "Back to home"
       }
     }
   },
@@ -35,6 +40,11 @@
         "rights": "Bảo lưu mọi quyền.",
         "made_with": "Được làm với",
         "by": "bởi {{author}}"
+      },
+      "not_found": {
+        "title": "Không tìm thấy trang",
+        "description": "Trang bạn tìm không tồn tại hoặc đã bị di chuyển.",
+        "back_home": "Về trang chủ"
       }
     }
   }

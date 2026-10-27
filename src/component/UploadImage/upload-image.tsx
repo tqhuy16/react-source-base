@@ -1,10 +1,10 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useId, useRef, useState } from 'react'
 import { Control, Controller, FieldError, FieldValues, Path } from 'react-hook-form'
-import { isEqual } from 'lodash'
+import classnames from 'classnames'
 
+import { ErrorMessage } from '@/component'
 import { FileUploadType } from '@/types/global'
 import styles from './uploadImage.module.scss'
-import classnames from 'classnames'
 
 interface IInputImageProps {
   accept: string
@@ -15,87 +15,79 @@ interface IInputImageProps {
   onChange: (files: FileUploadType[]) => void
 }
 
-const InputImageField = ({
-  className,
-  value,
-  onChange,
-  maxFiles = 1,
-  error = undefined,
-  accept,
-  ...rest
-}: IInputImageProps) => {
+const InputImageField = ({ className, value, onChange, maxFiles = 1, error = undefined, accept }: IInputImageProps) => {
+  // id riêng cho mỗi ô upload để label không trỏ nhầm sang input khác trên cùng trang
+  const inputId = useId()
   const [images, setImages] = useState<FileUploadType[]>(value || [])
+  const imagesRef = useRef(images)
+  imagesRef.current = images
 
+  // đồng bộ khi form reset / setValue từ bên ngoài
   useEffect(() => {
-    if (value && !isEqual(value?.length, images.length)) {
-      setImages(value)
-    }
+    setImages(value || [])
   }, [value])
 
+  // giải phóng object URL còn lại khi component bị gỡ
+  useEffect(() => {
+    return () => imagesRef.current.forEach((image) => URL.revokeObjectURL(image.urlPreview))
+  }, [])
+
   const handleFiles = (filesReceived: File[]) => {
-    const filesUploaded: FileUploadType[] = filesReceived.map((file) => {
-      const newFile: FileUploadType = {
-        urlPreview: window.URL.createObjectURL(file),
-        name: file.name,
-        file
-      }
+    if (images.length + filesReceived.length > maxFiles) return
 
-      return newFile
-    })
-
+    const filesUploaded: FileUploadType[] = filesReceived.map((file) => ({
+      urlPreview: URL.createObjectURL(file),
+      name: file.name,
+      file
+    }))
     const allFiles = [...images, ...filesUploaded]
 
-    if (allFiles.length > maxFiles) return
-
-    const filesLimit = [...images, ...filesUploaded].splice(0, maxFiles)
-
-    setImages(filesLimit)
-    onChange(filesLimit)
+    setImages(allFiles)
+    onChange(allFiles)
   }
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return
 
-    const fileArray = Array.from(event.target.files)
-
-    handleFiles(fileArray)
+    handleFiles(Array.from(event.target.files))
+    // cho phép chọn lại cùng một file sau khi đã xóa
+    event.target.value = ''
   }
 
   const handleDeleteImage = (indexImage: number) => {
+    URL.revokeObjectURL(images[indexImage].urlPreview)
     const newFiles = images.filter((_, index) => index !== indexImage)
     setImages(newFiles)
     onChange(newFiles)
   }
+
   return (
-    <>
-      <div className={styles.groupImagesUpload}>
-        {images.map((image, index) => (
-          <div className={styles.imagePreview} key={index}>
-            <div className={styles.customDelete}>
-              <div className={styles.textDelete} onClick={() => handleDeleteImage(index)}>
-                Delete
-              </div>
+    <div className={classnames(styles.groupImagesUpload, className)}>
+      {images.map((image, index) => (
+        <div className={styles.imagePreview} key={image.urlPreview}>
+          <div className={styles.customDelete}>
+            <div className={styles.textDelete} onClick={() => handleDeleteImage(index)}>
+              Delete
             </div>
-            <img src={image.urlPreview} alt='uploaded image' {...rest} />
           </div>
-        ))}
-        <input
-          className={styles.inputImage}
-          id='img'
-          type='file'
-          accept={accept}
-          multiple
-          onChange={handleImageChange}
-          {...rest}
-        />
-        <label htmlFor='img' className={classnames(styles.buttonUpload, error && styles.imageError)}>
-          <div className={styles.textUpload}>
-            <div>+ Upload</div>
-            <div>max {maxFiles} file(s)</div>
-          </div>
-        </label>
-      </div>
-    </>
+          <img src={image.urlPreview} alt={image.name} />
+        </div>
+      ))}
+      <input
+        className={styles.inputImage}
+        id={inputId}
+        type='file'
+        accept={accept}
+        multiple
+        onChange={handleImageChange}
+      />
+      <label htmlFor={inputId} className={classnames(styles.buttonUpload, error && styles.imageError)}>
+        <div className={styles.textUpload}>
+          <div>+ Upload</div>
+          <div>max {maxFiles} file(s)</div>
+        </div>
+      </label>
+    </div>
   )
 }
 
@@ -116,7 +108,7 @@ const UploadImage = <T extends FieldValues>({
   accept = 'image/gif, image/png, image/jpeg',
   isRequired = false,
   className,
-  ...rest
+  maxFiles
 }: IUploadImage<T>) => {
   return (
     <Controller
@@ -130,8 +122,15 @@ const UploadImage = <T extends FieldValues>({
               {isRequired && <span className='required-field'>*</span>}
             </div>
           )}
-          <InputImageField {...rest} value={field.value} onChange={field.onChange} accept={accept} error={error} />
-          {error?.message && <p className='text-error'>{error?.message}</p>}
+          <InputImageField
+            className={className}
+            maxFiles={maxFiles}
+            value={field.value}
+            onChange={field.onChange}
+            accept={accept}
+            error={error}
+          />
+          <ErrorMessage message={error?.message} />
         </>
       )}
     />

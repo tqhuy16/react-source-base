@@ -35,11 +35,12 @@ const Button = ({
   return (
     <button
       {...rest}
-      // disabled={disabled}
+      // chặn cả submit bằng phím Enter khi đang loading/disabled
+      disabled={disabled || loading}
       // background={background}
       // textcolor={textColor}
       className={classnames(
-        size,
+        size && styles[size],
         loading && styles.loading,
         rounded && styles.rounded,
         square && styles.square,

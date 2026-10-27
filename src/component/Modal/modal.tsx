@@ -7,29 +7,41 @@ interface IModalProps {
   isConfirm?: boolean
   okText?: string
   cancelText?: string
+  // nếu trả về Promise, modal hiện loading tới khi xong rồi mới đóng
+  onOk?: () => void | Promise<void>
+  onCancel?: () => void
 }
 
-const Modal = forwardRef(
-  ({ children, title, isConfirm = false, okText = 'OK', cancelText = 'Close', ...props }: IModalProps, ref: any) => {
+interface IModalRef {
+  showModal: () => void
+  hideModal: () => void
+}
+
+const Modal = forwardRef<IModalRef, IModalProps>(
+  ({ children, title, isConfirm = false, okText = 'OK', cancelText = 'Close', onOk, onCancel }, ref) => {
     const [open, setOpen] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
 
     useImperativeHandle(ref, () => {
       return {
-        showModal: () => setOpen(true)
+        showModal: () => setOpen(true),
+        hideModal: () => setOpen(false)
       }
     }, [])
 
-    const handleOk = () => {
-      setConfirmLoading(true)
-      setTimeout(() => {
+    const handleOk = async () => {
+      try {
+        setConfirmLoading(true)
+        await onOk?.()
         setOpen(false)
+      } finally {
         setConfirmLoading(false)
-      }, 2000)
+      }
     }
 
     const handleCancel = () => {
       setOpen(false)
+      onCancel?.()
     }
 
     return !isConfirm ? (
@@ -52,4 +64,7 @@ const Modal = forwardRef(
   }
 )
 
+Modal.displayName = 'Modal'
+
+export type { IModalRef }
 export default Modal

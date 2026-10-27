@@ -57,6 +57,12 @@
     cursor: not-allowed;
   }
 
+  // loading cũng gắn disabled native, nhưng giữ nguyên giao diện spinner
+  &.loading:disabled {
+    opacity: 1;
+    cursor: wait;
+  }
+
   &::before {
     background-color: $primary;
     content: '';

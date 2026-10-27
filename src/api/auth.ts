@@ -16,7 +16,7 @@ const login = ({ userName, password }: ILogin): Promise<any> => {
   }
   return mockData({
     error: {
-      statusText: 'user name or pass word incorrect'
+      statusText: 'USERNAME_OR_PASSWORD_INCORRECT'
     },
     duration: 1000
   })

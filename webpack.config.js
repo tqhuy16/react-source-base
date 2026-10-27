@@ -36,7 +36,8 @@ module.exports = (env) => {
     /* cấu hình thư mục đầu ra là build và tên file là random,
     clean dùng để reset thư mục dist khi build */
     output: {
-      filename: '[name].js',
+      // hash theo nội dung để trình duyệt/CDN không dùng lại bản cũ sau mỗi lần deploy
+      filename: IS_DEV ? '[name].js' : '[name].[contenthash:8].js',
       path: path.resolve(__dirname, 'build'),
       clean: true
     },
@@ -76,21 +77,8 @@ module.exports = (env) => {
           test: /\.css$/,
           use: [IS_DEV ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
         },
-        // {
-        //   test: /\.html$/,
-        //   use: [
-        //     {
-        //       loader: 'html-loader',
-        //       options: {
-        //         minimize: !IS_DEV,
-        //         root: path.resolve(__dirname, 'src')
-        //       }
-        //     }
-        //   ]
-        // },
         {
           test: /\.(jpg|jpeg|png|svg|woff|eot|ttf|otf|pdf|gif)$/,
-          // use: ['file-loader']
           type: 'asset/resource'
         }
       ]
@@ -104,13 +92,9 @@ module.exports = (env) => {
           language: appConfigs.PAGE_LANGUAGE
         }
       }),
-      new webpack.IgnorePlugin({
-        resourceRegExp: /^\.\/locale$/,
-        contextRegExp: /moment$/
-      }),
       new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[name].css'
+        filename: IS_DEV ? '[name].css' : '[name].[contenthash:8].css',
+        chunkFilename: IS_DEV ? '[name].css' : '[name].[contenthash:8].css'
       }),
       new webpack.DefinePlugin({
         'window._GLOBAL': JSON.stringify(appConfigs)

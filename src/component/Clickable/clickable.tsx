@@ -14,10 +14,7 @@ const Clickable = ({ children, className, onClick, href }: IClickableProps) => {
     <div
       className={classNames(styles.clickable, className)}
       onClick={(e: React.MouseEvent) => {
-        if (href) {
-          e.preventDefault()
-          console.log('href', href)
-        }
+        if (href) e.preventDefault()
         //pass e as param in onclick on Parent
         onClick(e)
       }}

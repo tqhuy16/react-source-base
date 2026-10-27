@@ -6,10 +6,11 @@ import { setLanguage, getLanguage } from '@/utils/translate-storage'
 import { LANGUAGE_KEY } from '@/constants/key-storage'
 import common from './common.json'
 import home from './home.json'
+import errorMessages from './error-messages.json'
 
 const INIT_LANGUAGE = getLanguage(LANGUAGE_KEY) || 'en'
 
-const resources = lodash.merge(common, home)
+const resources = lodash.merge(common, home, errorMessages)
 
 i18n.use(initReactI18next).init({
   resources,

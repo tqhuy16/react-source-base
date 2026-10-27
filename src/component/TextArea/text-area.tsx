@@ -1,8 +1,10 @@
 import { Input as AntInput } from 'antd'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 
-import styles from './textArea.module.scss'
 import classNames from 'classnames'
+
+import { ErrorMessage } from '@/component'
+import styles from './textArea.module.scss'
 
 interface ITextAreaProps<T extends FieldValues> {
   name: Path<T>
@@ -23,8 +25,7 @@ const TextArea = <T extends FieldValues>({
   className,
   placeholder,
   rows,
-  isRequired = false,
-  ...rest
+  isRequired = false
 }: ITextAreaProps<T>) => {
   return (
     <>
@@ -46,7 +47,7 @@ const TextArea = <T extends FieldValues>({
               rows={rows}
               className={classNames(styles.customTextArea, className)}
             />
-            {error?.message && <p className='text-error'>{error?.message}</p>}
+            <ErrorMessage message={error?.message} />
           </>
         )}
       />

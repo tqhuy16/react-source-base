@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { loginStorage } from '@/utils/authenticated-storage'
 import { login } from '@/api/auth'
-import { LOGIN_ACCESS_TOKEN } from '@/constants/key-storage'
+import { LOGIN_ACCESS_TOKEN, LOGIN_USER_NAME } from '@/constants/key-storage'
+import { ROUTER_PATH } from '@/constants/common'
 import { Button, PageContent, InputField, Toast } from '@/component'
 import { validationLogin } from '@/shared/validation/login-validation'
 
@@ -23,6 +25,7 @@ interface IFormInput {
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate()
+  const { t } = useTranslation('error-messages')
   const [loading, setLoading] = useState(false)
 
   const { control, handleSubmit } = useForm<IFormInput>({
@@ -38,15 +41,19 @@ const Login = (): JSX.Element => {
       const { token } = await login(data)
       if (token) {
         loginStorage(LOGIN_ACCESS_TOKEN, token)
-        navigate('/')
+        loginStorage(LOGIN_USER_NAME, data.userName)
+        navigate(ROUTER_PATH.HOME)
       }
       return
     } catch (error) {
-      Toast('error', error.statusText)
+      Toast('error', t(error.statusText))
     } finally {
       setLoading(false)
     }
   }
+
+  // đã đăng nhập thì không cho quay lại trang login
+  if (localStorage.getItem(LOGIN_ACCESS_TOKEN)) return <Navigate to={ROUTER_PATH.HOME} replace />
 
   return (
     <PageContent>

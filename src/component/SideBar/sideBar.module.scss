@@ -21,7 +21,8 @@
     .menu {
       display: flex;
       flex-direction: column;
-      padding: 10px 0;
+      // không padding trên để item đầu sát header
+      padding: 0 0 10px;
 
       .menuItem {
         position: relative;

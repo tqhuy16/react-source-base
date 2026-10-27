@@ -1,6 +1,7 @@
-import { useForm, Controller, FieldValues, Control, Path } from 'react-hook-form'
+import { Controller, FieldValues, Control, Path } from 'react-hook-form'
 import { Checkbox as AntdCheckbox } from 'antd'
 
+import { ErrorMessage } from '@/component'
 import styles from './checkbox.module.scss'
 
 interface ICheckboxProps<T extends FieldValues> {
@@ -18,8 +19,7 @@ const Checkbox = <T extends FieldValues>({
   options,
   label,
   className,
-  isRequired = false,
-  ...rest
+  isRequired = false
 }: ICheckboxProps<T>) => {
   return (
     <>
@@ -34,8 +34,8 @@ const Checkbox = <T extends FieldValues>({
         control={control}
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <>
-            <AntdCheckbox.Group options={options} onChange={onChange} />
-            {error?.message && <p className='text-error'>{error?.message}</p>}
+            <AntdCheckbox.Group className={className} options={options} value={value ?? []} onChange={onChange} />
+            <ErrorMessage message={error?.message} />
           </>
         )}
       />

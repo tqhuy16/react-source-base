@@ -19,6 +19,7 @@ import DatePicker from './DatePicker/date-picker'
 import TextArea from './TextArea/text-area'
 import UploadImage from './UploadImage/upload-image'
 import Checkbox from './Checkbox/check-box'
+import ErrorMessage from './ErrorMessage/error-message'
 
 export {
   PrivateRoute,
@@ -41,5 +42,6 @@ export {
   DatePicker,
   TextArea,
   UploadImage,
-  Checkbox
+  Checkbox,
+  ErrorMessage
 }

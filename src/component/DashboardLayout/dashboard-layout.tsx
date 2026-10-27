@@ -9,7 +9,7 @@ interface MenuContextType {
   setIsOpenMenu: (isOpenMenu: boolean) => void
 }
 
-const ToggleMenu = createContext<MenuContextType>({ isOpenMenu: true, setIsOpenMenu: () => {} })
+const ToggleMenu = createContext<MenuContextType>({ isOpenMenu: true, setIsOpenMenu: () => undefined })
 
 const DashboardLayout = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(true)

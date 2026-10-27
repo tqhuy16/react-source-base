@@ -1,4 +1,7 @@
+// Giá trị là key trong translations/error-messages.json, được dịch khi hiển thị (component ErrorMessage)
 export default {
-  USERNAME_REQUIRED: 'Username is required',
-  PASSWORD_REQUIRED: 'Password is required'
+  REQUIRED: 'REQUIRED',
+  USERNAME_REQUIRED: 'USERNAME_REQUIRED',
+  PASSWORD_REQUIRED: 'PASSWORD_REQUIRED',
+  EMAIL_INVALID: 'EMAIL_INVALID'
 }

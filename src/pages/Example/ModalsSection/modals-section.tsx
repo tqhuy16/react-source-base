@@ -1,10 +1,17 @@
 import { useRef } from 'react'
 
-import { Button, Modal } from '@/component'
+import { Button, Modal, Toast } from '@/component'
+import type { IModalRef } from '@/component/Modal/modal'
+import mockData from '@/utils/mock-api'
 
 const ModalsSection = (): JSX.Element => {
-  const confirmBoxRef = useRef<any>()
-  const modalRef = useRef<any>()
+  const confirmBoxRef = useRef<IModalRef>(null)
+  const modalRef = useRef<IModalRef>(null)
+
+  const onConfirmDelete = async () => {
+    await mockData({ data: true, duration: 2000 })
+    Toast('show', 'Record deleted')
+  }
 
   return (
     <div className='example-section'>
@@ -20,7 +27,7 @@ const ModalsSection = (): JSX.Element => {
         <p>Hello</p>
       </Modal>
 
-      <Modal title='Confirm!' ref={confirmBoxRef} isConfirm={true}>
+      <Modal title='Confirm!' ref={confirmBoxRef} isConfirm={true} onOk={onConfirmDelete}>
         <p>Are you sure to delete a record</p>
       </Modal>
     </div>

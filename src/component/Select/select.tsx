@@ -1,6 +1,7 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import { Select as AntdSelect } from 'antd'
 
+import { ErrorMessage } from '@/component'
 import { SelectOption } from '@/types/global'
 import styles from './select.module.scss'
 
@@ -19,8 +20,7 @@ const Select = <T extends FieldValues>({
   control,
   label,
   placeholder,
-  isRequired = false,
-  ...rest
+  isRequired = false
 }: ISelectProps<T>) => {
   return (
     <>
@@ -39,12 +39,14 @@ const Select = <T extends FieldValues>({
               className={styles.select}
               showSearch
               allowClear={true}
-              defaultValue={value}
+              placeholder={placeholder}
+              // chuỗi rỗng coi như chưa chọn để hiện placeholder
+              value={value || undefined}
               status={error?.message && 'error'}
               onChange={(e: string) => onChange(e)}
               options={options}
-            ></AntdSelect>
-            {error?.message && <p className='text-error'>{error?.message}</p>}
+            />
+            <ErrorMessage message={error?.message} />
           </>
         )}
       />

@@ -2,6 +2,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form'
 import type { RadioChangeEvent } from 'antd'
 import { Radio as AntdRadio } from 'antd'
 
+import { ErrorMessage } from '@/component'
 import { RadioOption } from '@/types/global'
 import styles from './radio.module.scss'
 
@@ -41,7 +42,7 @@ const Radio = <T extends FieldValues>({
                 </AntdRadio>
               ))}
             </AntdRadio.Group>
-            {error?.message && <p className='text-error'>{error?.message}</p>}
+            <ErrorMessage message={error?.message} />
           </>
         )}
       />
